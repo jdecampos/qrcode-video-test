@@ -1,0 +1,30 @@
+# FastAPI and ASGI server
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# QR Code generation
+qrcode[pil]==7.4.2
+Pillow==10.1.0
+svgwrite==1.4.3
+reportlab==4.0.7
+
+# Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Validation and serialization
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2
+
+# Development tools
+ruff==0.1.6
+black==23.11.0
+mypy==1.7.1
+
+# Environment and configuration
+python-dotenv==1.0.0
