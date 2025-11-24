@@ -3,8 +3,8 @@ version: '3.8'
 services:
   qr-api:
     build: .
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     environment:
       - DEBUG=false
       - HOST=0.0.0.0

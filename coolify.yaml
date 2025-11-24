@@ -1,0 +1,52 @@
+# Coolify Configuration for QR Code Video Test Project
+name: qrcode-video-test
+version: "1.0.0"
+
+# Service configuration
+services:
+  - name: qr-api
+    type: docker
+    source: github
+    repository: jdecampos/qrcode-video-test
+    branch: master
+    docker:
+      file: Dockerfile
+      context: .
+    environment:
+      - DEBUG=false
+      - HOST=0.0.0.0
+      - PORT=8000
+      - SECRET_KEY=${SECRET_KEY}
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - AUTH_USERNAME=${AUTH_USERNAME}
+      - AUTH_PASSWORD=${AUTH_PASSWORD}
+      - MAX_DATA_LENGTH=2000
+      - DEFAULT_SIZE=medium
+      - DEFAULT_FORMAT=png
+      - DEFAULT_ERROR_CORRECTION=M
+      - MAX_CONCURRENT_REQUESTS=100
+      - GENERATION_TIMEOUT_MS=500
+      - LOG_LEVEL=INFO
+    health_check:
+      path: /v1/health
+      port: 8000
+      interval: 30
+      timeout: 10
+      retries: 3
+    resources:
+      memory: 512Mi
+      cpu: 500m
+
+# Deployment settings
+deployment:
+  auto_deploy: true
+  zero_downtime: true
+  
+# Monitoring
+monitoring:
+  enabled: true
+  metrics:
+    - response_time
+    - error_rate
+    - throughput

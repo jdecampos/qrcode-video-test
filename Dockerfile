@@ -23,7 +23,7 @@ RUN useradd --create-home --shell /bin/bash app \
     && chown -R app:app /app
 USER app
 
-# Expose port
+# Expose port (Coolify will handle port mapping)
 EXPOSE 8000
 
 # Health check
