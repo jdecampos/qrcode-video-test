@@ -28,7 +28,7 @@ The API requires JWT authentication for all endpoints except `/v1/health`.
 Generate a JWT token using your credentials:
 
 ```bash
-curl -X POST "http://localhost:8000/v1/auth/token" \
+curl -X POST "http://localhost/v1/auth/token" \
   -H "Content-Type: application/json" \
   -d '{"username": "admin", "password": "your_password"}'
 ```
@@ -58,7 +58,7 @@ curl -X POST "http://localhost:8000/v1/qr-code" \
 Check if a token is still valid:
 
 ```bash
-curl -X POST "http://localhost:8000/v1/auth/validate" \
+curl -X POST "http://localhost/v1/auth/validate" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
 
@@ -108,9 +108,9 @@ The API will be available at `http://localhost:8000`
 
 ### API Documentation
 
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-- **OpenAPI Schema**: http://localhost:8000/openapi.json
+- **Swagger UI**: http://localhost/docs
+- **ReDoc**: http://localhost/redoc
+- **OpenAPI Schema**: http://localhost/openapi.json
 
 ## 🚀 API Endpoints
 
@@ -181,7 +181,7 @@ Authorization: Bearer <your-jwt-token>
 ### Generate QR Code
 
 ```bash
-curl -X POST "http://localhost:8000/v1/qr-code" \
+curl -X POST "http://localhost/v1/qr-code" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{
@@ -196,7 +196,7 @@ curl -X POST "http://localhost:8000/v1/qr-code" \
 ### Health Check
 
 ```bash
-curl "http://localhost:8000/v1/health"
+curl "http://localhost/v1/health"
 ```
 
 ## 📝 Examples
@@ -205,13 +205,13 @@ curl "http://localhost:8000/v1/health"
 
 ```bash
 # 1. Get authentication token
-TOKEN=$(curl -s -X POST "http://localhost:8000/v1/auth/token" \
+TOKEN=$(curl -s -X POST "http://localhost/v1/auth/token" \
   -H "Content-Type: application/json" \
   -d '{"username": "admin", "password": "secure_password_123"}' | \
   jq -r '.access_token')
 
 # 2. Generate QR code with the token
-curl -X POST "http://localhost:8000/v1/qr-code" \
+curl -X POST "http://localhost/v1/qr-code" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{"data": "https://example.com", "size": "medium", "format": "png"}' \
@@ -222,19 +222,19 @@ curl -X POST "http://localhost:8000/v1/qr-code" \
 
 ```bash
 # SVG format (vector)
-curl -X POST "http://localhost:8000/v1/qr-code" \
+curl -X POST "http://localhost/v1/qr-code" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{"data": "Contact: John Doe", "format": "svg"}' \
   --output contact.svg
 
 # PDF format (print)
-curl -X POST "http://localhost:8000/v1/qr-code" \
+curl -X POST "http://localhost/v1/qr-code" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{"data": "Invoice #12345", "format": "pdf", "size": "large"}' \
   --output invoice.pdf
 
 # High error correction for damaged codes
-curl -X POST "http://localhost:8000/v1/qr-code" \
+curl -X POST "http://localhost/v1/qr-code" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{"data": "Critical data", "error_correction": "H", "format": "png"}' \
   --output robust.png
@@ -247,13 +247,13 @@ import requests
 import json
 
 # Get token
-auth_response = requests.post("http://localhost:8000/v1/auth/token", 
+auth_response = requests.post("http://localhost/v1/auth/token", 
   json={"username": "admin", "password": "secure_password_123"})
 token = auth_response.json()["access_token"]
 
 # Generate QR code
 headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
-qr_response = requests.post("http://localhost:8000/v1/qr-code",
+qr_response = requests.post("http://localhost/v1/qr-code",
   headers=headers,
   json={"data": "https://github.com", "format": "png", "size": "medium"})
 
@@ -266,7 +266,7 @@ with open("github-qr.png", "wb") as f:
 
 ```javascript
 // Get token
-const authResponse = await fetch('http://localhost:8000/v1/auth/token', {
+const authResponse = await fetch('http://localhost/v1/auth/token', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -277,7 +277,7 @@ const authResponse = await fetch('http://localhost:8000/v1/auth/token', {
 const { access_token } = await authResponse.json();
 
 // Generate QR code
-const qrResponse = await fetch('http://localhost:8000/v1/qr-code', {
+const qrResponse = await fetch('http://localhost/v1/qr-code', {
   method: 'POST',
   headers: {
     'Authorization': `Bearer ${access_token}`,
