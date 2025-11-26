@@ -1,10 +1,6 @@
-version: '3.8'
-
 services:
   qr-api:
     build: .
-    expose:
-      - "8000"
     environment:
       - DEBUG=false
       - HOST=0.0.0.0
